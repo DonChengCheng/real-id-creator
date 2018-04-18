@@ -21,7 +21,31 @@
 .App-intro {
   font-size: large;
 }
-
+.App-Input {
+  margin-left: 12px;
+  width: 50%;
+}
+.App-Text {
+  width: 40px;
+  display:inline-block;
+  text-align: right;
+}
+.App-Container {
+  margin-top: 40px;
+}
+.App-Button {
+  margin-top: 40px;
+}
+.App-Ercode-Content {
+  border: 2px solid #02232c;
+  margin: 60px;
+  border-radius: 4px;
+}
+.App-Ercode-Text {
+  width: 40px;
+  display:inline-block;
+  text-align: right;
+}
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
