@@ -163,7 +163,7 @@ class App extends Component {
                             <Col>
                                 <ReactToPrint
                                     trigger={() => (
-                                        <a style={{ marginLeft: 10 }}>print QR code</a>
+                                        <a style={{ marginLeft: 10 }}>Print QR code</a>
                                     )}
                                     onBeforePrint={() => {
                                         console.log("before print!");
@@ -178,12 +178,12 @@ class App extends Component {
                             </Col>
                         </Row>
                         <div className={'App-Ercode-Content'} ref={el => (this.componentRef = el)}>
-                            <Row type={'flex'} justify={'flex-start'} style={{margin: 20, width: '100%'}} gutter={40}>
+                            <Row type={'flex'} justify={'flex-start'} style={{margin: 20, width: '100%'}} gutter={16}>
                                 <Col>
                                     <QRCode
                                         renderAs={'svg'}
                                         level={'H'}
-                                        value={this.state.ercodeValue}/>
+                                        value={this.state.ercodeValue} />
                                 </Col>
                                 <Col>
                                     <div>
