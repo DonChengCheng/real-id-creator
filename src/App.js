@@ -166,7 +166,6 @@ class App extends Component {
                                         <a style={{ marginLeft: 10 }}>Print QR code</a>
                                     )}
                                     onBeforePrint={() => {
-                                        console.log("before print!");
                                         this.index = this.index + 1;
                                         const id = this.generateId();
                                         this.setState({
