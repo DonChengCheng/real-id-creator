@@ -59,10 +59,9 @@ class App extends Component {
                 return '00' + value;
             case 5:
                 return '0' + value;
-            case 6:
+            default:
                 return value;
         }
-        return value;
     }
 
     generateErcode = () => {
@@ -83,8 +82,8 @@ class App extends Component {
             <div className="App">
                 <Row className={'App-Container'} type={'flex'} gutter={6}>
                     <Col span={12}>
-                        <Row  type={'flex'} gutter={6}>
-                            <Col>
+                        <Row  className={'App-Content'} type={'flex'} >
+                            <Col span={24}>
                                 <span className={'App-Text'}>
                                     ID
                                 </span>
@@ -94,8 +93,8 @@ class App extends Component {
                             </Col>
 
                         </Row>
-                        <Row type={'flex'} gutter={6}>
-                            <Col>
+                        <Row className={'App-Content'} type={'flex'}>
+                            <Col span={24}>
                                 <span className={'App-Text'}>
                                     PN
                                 </span>
@@ -105,8 +104,8 @@ class App extends Component {
                             </Col>
                         </Row>
 
-                        <Row type={'flex'}>
-                            <Col>
+                        <Row className={'App-Content'} type={'flex'}>
+                            <Col span={24}>
                                 <span className={'App-Text'}>
                                     QTY
                                 </span>
@@ -116,8 +115,8 @@ class App extends Component {
                             </Col>
 
                         </Row>
-                        <Row type={'flex'} >
-                            <Col>
+                        <Row className={'App-Content'} type={'flex'} >
+                            <Col span={24}>
                                 <span className={'App-Text'}>
                                     DC
                                 </span>
@@ -126,8 +125,8 @@ class App extends Component {
                                 }}/>
                             </Col>
                         </Row>
-                        <Row type={'flex'} >
-                            <Col>
+                        <Row className={'App-Content'} type={'flex'} >
+                            <Col span={24}>
                                 <span className={'App-Text'}>
                                     LOT
                                 </span>
@@ -137,8 +136,8 @@ class App extends Component {
                             </Col>
 
                         </Row>
-                        <Row type={'flex'} >
-                            <Col>
+                        <Row className={'App-Content'} type={'flex'} >
+                            <Col span={24}>
                                 <span className={'App-Text'}>
                                     VPN
                                 </span>
@@ -153,33 +152,37 @@ class App extends Component {
                             onClick={() => {
                                 this.generateErcode();
                             }}>
-                            生成二维码
+                            Generate QR code
                         </Button>
                     </Col>
-                    <Col>
+                    <Col span={12}>
                         <Row type={'flex'} justify={'flex-start'} style={{marginLeft: 60, marginTop: 60}}>
                              <Col>
-                                <span onClick={() => {
-                                    this.index = this.index + 1;
-                                    const id = this.generateId();
-                                    this.setState({
-                                        id: id
-                                    });
-                                    window.print()
-                                }}>二维码生成区</span>
+                                <span >QR code generate area</span>
                             </Col>
                             <Col>
                                 <ReactToPrint
-                                    trigger={() => <a href="#">打印二维码</a>}
+                                    trigger={() => (
+                                        <a style={{ marginLeft: 10 }}>print QR code</a>
+                                    )}
+                                    onBeforePrint={() => {
+                                        console.log("before print!");
+                                        this.index = this.index + 1;
+                                        const id = this.generateId();
+                                        this.setState({
+                                            id: id
+                                        });
+                                    }}
                                     content={() => this.componentRef}
                                 />
                             </Col>
                         </Row>
                         <div className={'App-Ercode-Content'} ref={el => (this.componentRef = el)}>
-                            <Row type={'flex'} justify={'flex-start'} style={{margin: 20}} gutter={40}>
+                            <Row type={'flex'} justify={'flex-start'} style={{margin: 20, width: '100%'}} gutter={40}>
                                 <Col>
                                     <QRCode
                                         renderAs={'svg'}
+                                        level={'H'}
                                         value={this.state.ercodeValue}/>
                                 </Col>
                                 <Col>
