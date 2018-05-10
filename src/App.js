@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import {Row, Col, Button, Input, InputNumber} from 'antd';
 import ContentItem from './ContentItem';
-
+import html2canvas from 'html2canvas';
 import ReactToPrint from "react-to-print";
 
 class App extends Component {
@@ -58,7 +58,35 @@ class App extends Component {
                 return value;
         }
     }
-
+    exportImage = () => {
+        const _canvas =  document.querySelector('#page'); // 获取到要导出的页面内容
+        const w = parseFloat(window.getComputedStyle(_canvas).width);
+        const h = parseFloat(window.getComputedStyle(_canvas).height);
+        let scale=1;// 渲染比例
+        const canvas2 = document.createElement('canvas');
+        canvas2.getContext('2d');// 画布上绘图的环境，目前只支持2d
+        const opts = {
+            scale,
+            canvas: canvas2,
+            width: w,
+            height: h,
+        }
+        html2canvas(document.querySelector('#page'), opts).then(canvas => {
+            // canvas转换成url，然后利用a标签的download属性，直接下载
+            const dataURL = canvas.toDataURL();// base64 编码的 dataURL
+            const link = document.createElement('a');
+            link.addEventListener('click', () => {
+                link.download = `${'ercode' || 'chart'}.png`;
+                link.href = dataURL.replace('image/png', 'image/octet-stream');
+                // 修改DataURL的Mime-type为octet-stream，强制让浏览器下载
+                // octet-stream是以流的形式下载文件,这样可以实现任意格式的文件下载。
+            });
+            const e = document.createEvent('MouseEvents');
+            e.initEvent('click', false, false);
+            // 2.canBubble	事件是否起泡。 3.cancelable	是否可以用 preventDefault() 方法取消事件。
+            link.dispatchEvent(e);
+        });
+    }
     render() {
         return (
             <div className="App">
@@ -91,9 +119,12 @@ class App extends Component {
                                 <span className={'App-Text'}>
                                     QTY
                                 </span>
-                                <Input className={'App-Input'} value={this.state.qty} onChange={(e) => {
-                                    this.setState({qty: e.target.value})
-                                }}/>
+                                <Input
+                                    className={'App-Input'}
+                                    value={this.state.qty}
+                                    onChange={(e) => {
+                                        this.setState({qty: e.target.value})
+                                    }}/>
                             </Col>
 
                         </Row>
@@ -193,19 +224,21 @@ class App extends Component {
                                     content={() => this.componentRef}
                                 />
                             </Col>
-
+                            <Col>
+                                <a onClick={this.exportImage}>Export Image</a>
+                            </Col>
                         </Row>
-                        { this.state.contentArr.length && <div className={'App-Ercode-Content'} >
-                            <Row type={'flex'} gutter={8} ref={el => (this.componentRef = el)}>
+                        {this.state.contentArr.length > 0 ?
+                            <Row id={'page'}type={'flex'} justify={'center'} gutter={8} ref={el => (this.componentRef = el)}>
                                 {this.state.contentArr.map((item, index) => {
                                     return (
-                                        <Col span={12}>
+                                        <Col >
                                             <ContentItem item={item} key={index.toString()}/>
                                         </Col>
                                     )
                                 })}
                             </Row>
-                        </div>}
+                        : null}
 
                     </Col>
                 </Row>

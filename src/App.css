@@ -46,11 +46,10 @@
   margin-top: 30px;
   margin-left: 60px;
   margin-right: 60px;
-  width: 60%;
   border-radius: 4px;
+  width: auto;
 }
 .App-Ercode-Text {
-  width: 40px;
   display:inline-block;
   text-align: right;
   font-size: 14px;
