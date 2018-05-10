@@ -178,6 +178,7 @@ class App extends Component {
                                     onClick={() => {
                                         const value = this.state.qrCodes;
                                         if (value > 0) {
+                                            this.index = parseInt(this.state.id.substr(8, 6))
                                             const contentArr = [];
                                             for (let i = 0; i < value; i++) {
                                                 const index = this.index + i;
@@ -232,7 +233,7 @@ class App extends Component {
                             <Row id={'page'}type={'flex'} justify={'center'} gutter={8} ref={el => (this.componentRef = el)}>
                                 {this.state.contentArr.map((item, index) => {
                                     return (
-                                        <Col >
+                                        <Col key={item.finalId}>
                                             <ContentItem item={item} key={index.toString()}/>
                                         </Col>
                                     )
