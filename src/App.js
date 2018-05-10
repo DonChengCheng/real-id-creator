@@ -17,17 +17,7 @@ class App extends Component {
             dc: this.getCurrentDate(),
             lot: '',
             vpn: '',
-            contentArr: [
-                {
-                    ercodeValue: '',
-                    finalId: '',
-                    finalPn: '',
-                    finalQty: '',
-                    finalDc: '',
-                    finalLot: '',
-                    finalVpn: '',
-                }
-            ],
+            contentArr: [],
             qrCodes: 1
         }
     }
@@ -67,19 +57,6 @@ class App extends Component {
             default:
                 return value;
         }
-    }
-
-    generateErcode = () => {
-        const generateValue = `${this.state.id};${this.state.pn};${this.state.qty};${this.state.dc};${this.state.lot};${this.state.vpn}`;
-        this.setState((prevState) => ({
-            ercodeValue: generateValue,
-            finalId: prevState.id,
-            finalPn: prevState.pn,
-            finalQty: prevState.qty,
-            finalDc: prevState.dc,
-            finalLot: prevState.lot,
-            finalVpn: prevState.vpn
-        }))
     }
 
     render() {
@@ -218,7 +195,7 @@ class App extends Component {
                             </Col>
 
                         </Row>
-                        <div className={'App-Ercode-Content'} >
+                        { this.state.contentArr.length && <div className={'App-Ercode-Content'} >
                             <Row type={'flex'} gutter={8} ref={el => (this.componentRef = el)}>
                                 {this.state.contentArr.map((item, index) => {
                                     return (
@@ -228,7 +205,8 @@ class App extends Component {
                                     )
                                 })}
                             </Row>
-                        </div>
+                        </div>}
+
                     </Col>
                 </Row>
 
