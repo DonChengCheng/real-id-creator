@@ -179,7 +179,7 @@ class App extends Component {
                                         const value = this.state.qrCodes;
                                         if (value > 0) {
                                             this.index = parseInt(this.state.id.substr(8, 6))
-                                            const idPrefix = this.state.id.substring(0, 7);
+                                            const idPrefix = this.state.id.substring(0, 8);
                                             const contentArr = [];
                                             for (let i = 0; i < value; i++) {
                                                 const index = this.index + i;
