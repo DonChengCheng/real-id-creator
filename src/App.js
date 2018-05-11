@@ -179,10 +179,11 @@ class App extends Component {
                                         const value = this.state.qrCodes;
                                         if (value > 0) {
                                             this.index = parseInt(this.state.id.substr(8, 6))
+                                            const idPrefix = this.state.id.substring(0, 7);
                                             const contentArr = [];
                                             for (let i = 0; i < value; i++) {
                                                 const index = this.index + i;
-                                                const id = this.generateId(index);
+                                                const id = idPrefix + this.getAutoIncrementIndex(index + "");;
                                                 const generateValue = `${id};${this.state.pn};${this.state.qty};${this.state.dc};${this.state.lot};${this.state.vpn}`;
                                                 const contentItem = {
                                                     ercodeValue: generateValue,
